@@ -1,0 +1,5 @@
+todo borrow book
+deadline buy eggs /by fri
+event dance /from 7pm /to 10pm
+list
+bye
