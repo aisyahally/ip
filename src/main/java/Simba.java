@@ -29,8 +29,31 @@ public class Simba {
                     System.out.println(list.get(i-1));
                 }
             } else {
-                System.out.println("added: " + command);
-                list.add(new Task(command));
+                if (command.contains("todo")) {
+                    list.add(new ToDo(command.substring(5)));
+                } else if (command.contains("deadline")) {
+                    for (int i = 0; i < command.length(); i++) {
+                        if (command.substring(i, i+1).equals("/")) {
+                            list.add(new Deadline(command.substring(9,i), command.substring(i+4)));
+                        }
+                    }
+                } else {
+                    int startIdx = 0;
+                    int endIdx = 0;
+                    for (int i = 0; i < command.length(); i++) {
+                        if (command.substring(i, i+1).equals("/")) {
+                            if (command.substring(i+1, i+2).equals("f")) {
+                                startIdx = i + 6;
+                            } else {
+                                endIdx = i + 4;
+                            }
+                        }
+                    }
+                    list.add(new Event(command.substring(6, startIdx - 6), command.substring(startIdx, endIdx-4),
+                            command.substring(endIdx)));
+                }
+                System.out.println("Added: " + list.get(list.size() -1));
+                System.out.println("Now you have " + list.size() + " task(s) in the list");
             }
         }
     }
@@ -59,5 +82,43 @@ class Task {
         } else {
             return "[ ] " + this.taskName;
         }
+    }
+}
+
+class ToDo extends Task {
+    ToDo(String name) {
+        super(name);
+    }
+
+    public String toString() {
+        return "[T] " + super.toString();
+    }
+}
+
+class Deadline extends Task {
+    private String deadline;
+
+    Deadline(String name, String deadline) {
+        super(name);
+        this.deadline = deadline;
+    }
+
+    public String toString() {
+        return "[D] " + super.toString() + " (by: " + this.deadline + ")";
+    }
+}
+
+class Event extends Task {
+    private String start;
+    private String end;
+
+    Event(String name, String start, String end) {
+        super(name);
+        this.start = start;
+        this.end = end;
+    }
+
+    public String toString() {
+        return "[E] " + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
     }
 }
