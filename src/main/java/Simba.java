@@ -29,6 +29,11 @@ public class Simba {
                         System.out.println("\tAlright! This task is done:");
                         System.out.println(list.get(i - 1));
                     }
+                } else if (command.contains("delete")) {
+                    int idx = Integer.parseInt(command.substring(command.length() - 1));
+                    System.out.println("\tDeleted task: " + list.get(idx-1));
+                    System.out.println("\tNow you have " + list.size() + " task(s) in the list");
+                    list.remove(idx-1);
                 } else {
                     if (command.contains("todo")) {
                         if (command.length() < 5) {
@@ -39,10 +44,15 @@ public class Simba {
                         if (command.length() < 9) {
                             throw new EmptyException("Deadline");
                         }
+                        boolean added = false;
                         for (int i = 0; i < command.length(); i++) {
                             if (command.substring(i, i + 1).equals("/")) {
                                 list.add(new Deadline(command.substring(9, i), command.substring(i + 4)));
+                                added = true;
                             }
+                        }
+                        if (!added) {
+                            throw new EmptyException("Deadline");
                         }
                     } else if (command.contains("event")) {
                         if (command.length() < 6) {
@@ -59,6 +69,9 @@ public class Simba {
                                 }
                             }
                         }
+                        if (startIdx == 0 | endIdx == 0) {
+                            throw new EmptyException("Event");
+                        }
                         list.add(new Event(command.substring(6, startIdx - 6), command.substring(startIdx, endIdx - 4),
                                 command.substring(endIdx)));
                     } else {
@@ -70,7 +83,7 @@ public class Simba {
                 }
             }
         } catch (EmptyException e) {
-            System.out.println("\tOh no! " + e.getMessage() + " description is empty");
+            System.out.println("\tOh no! " + e.getMessage() + " description is wrong");
         } catch (NonsenseException e) {
             System.out.println("\tOh dear :( I don't understand you");
         }
