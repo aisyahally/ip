@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Simba {
     private static void printFile(String filePath) throws FileNotFoundException {
@@ -81,6 +83,7 @@ public class Simba {
                         boolean added = false;
                         for (int i = 0; i < command.length(); i++) {
                             if (command.substring(i, i + 1).equals("/")) {
+                                LocalDateTime = 
                                 list.add(new Deadline(command.substring(9, i), command.substring(i + 4)));
                                 added = true;
                             }
