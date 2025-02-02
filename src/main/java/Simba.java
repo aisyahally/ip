@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Simba {
     public static void main(String[] args) {
         try {
-            System.out.println("\tHello I am Simba.");
+            System.out.println("\tHello I am Simba :D");
             System.out.println("\tHow can I help you?");
             Scanner sc = new Scanner(System.in);
             ArrayList<Task> list = new ArrayList<Task>();
@@ -22,12 +22,10 @@ public class Simba {
                     int i = Integer.parseInt(command.substring(command.length() - 1));
                     if (command.contains("unmark")) {
                         list.get(i - 1).makeUndone();
-                        System.out.println("\tOkay! This task is not done:");
-                        System.out.println(list.get(i - 1));
+                        System.out.println("\tOkay! This task is not done: " + list.get(i - 1));
                     } else {
                         list.get(i - 1).makeDone();
-                        System.out.println("\tAlright! This task is done:");
-                        System.out.println(list.get(i - 1));
+                        System.out.println("\tAlright! This task is done: " + list.get(i - 1));
                     }
                 } else if (command.contains("delete")) {
                     int idx = Integer.parseInt(command.substring(command.length() - 1));
