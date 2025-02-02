@@ -141,7 +141,7 @@ class TaskList {
      * @param idx The index of the task to mark as done.
      */
     void markTask(int idx) {
-        if (idx >= this.list.size()) {
+        if (idx > this.list.size()) {
             System.out.println("\tTask of this number does not exist");
             return;
         }
@@ -154,7 +154,7 @@ class TaskList {
      * @param idx The index of the task to mark as not done.
      */
     void unmarkTask(int idx) {
-        if (idx >= this.list.size()) {
+        if (idx > this.list.size()) {
             System.out.println("\tTask of this number does not exist");
             return;
         }
@@ -240,13 +240,13 @@ class Parser {
      * @throws Exception If the command is invalid or the task description is empty.
      */
     Task taskToAdd() throws Exception {
-        if (this.command.contains("todo")) {
+        if (this.command.substring(0, 4).equals("todo")) {
             if (this.command.length() < 5) {
                 throw new EmptyException("ToDo");
             }
             return new ToDo(this.command.substring(5));
-        } else if (this.command.contains("deadline")) {
-            if (this.command.length() < 9) {
+        } else if (this.command.substring(0, 8).equals("deadline")) {
+            if (this.command.length() < 10) {
                 throw new EmptyException("Deadline");
             }
             for (int i = 0; i < this.command.length(); i++) {
@@ -255,8 +255,8 @@ class Parser {
                 }
             }
             throw new EmptyException("Deadline");
-        } else if (this.command.contains("event")) {
-            if (this.command.length() < 6) {
+        } else if (this.command.substring(0, 5).equals("event")) {
+            if (this.command.length() < 7) {
                 throw new EmptyException("Event");
             }
             int startIdx = 0;
@@ -329,16 +329,16 @@ class Ui {
                 this.bye = true;
             } else if (command.equals("list")) {
                 this.storage.printFile();
-            } else if (command.contains("mark")) {
+            } else if (command.substring(0, 4).equals("mark")) {
                 int i = Integer.parseInt(command.substring(command.length() - 1));
-                if (command.contains("unmark")) {
+                if (command.substring(0, 6).equals("unmark")) {
                     this.tasks.unmarkTask(i);
                 } else {
                     this.tasks.markTask(i);
                 }
-            } else if (command.contains("delete")) {
+            } else if (command.substring(0, 6).equals("delete")) {
                 this.tasks.deleteTask(new Parser(command).idxToDelete());
-            } else if (command.contains("find")) {
+            } else if (command.substring(0, 4).equals("find")) {
                 this.tasks.findTask(new Parser(command).wordToFind());
             } else {
                 this.tasks.addTask(new Parser(command).taskToAdd());
