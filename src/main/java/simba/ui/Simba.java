@@ -75,6 +75,10 @@ class TaskList {
     }
 
     void deleteTask(int idx) {
+        if (idx >= this.list.size()) {
+            System.out.println("\tTask of this number does not exist");
+            return;
+        }
         System.out.println("\tDeleted task: " + list.get(idx-1));
         this.list.remove(idx-1);
         System.out.println("\tNow you have " + list.size() + " task(s) in the list");
@@ -87,11 +91,19 @@ class TaskList {
     }
 
     void markTask(int idx) {
+        if (idx >= this.list.size()) {
+            System.out.println("\tTask of this number does not exist");
+            return;
+        }
         this.list.get(idx - 1).makeDone();
         System.out.println("\tAlright! This task is done: " + list.get(idx - 1));
     }
 
     void unmarkTask(int idx) {
+        if (idx >= this.list.size()) {
+            System.out.println("\tTask of this number does not exist");
+            return;
+        }
         this.list.get(idx - 1).makeUndone();
         System.out.println("\tOkay! This task is not done: " + list.get(idx - 1));
     }
@@ -182,15 +194,15 @@ class Ui {
             if (command.equals("hello")) {
                 System.out.println("\tHello! What would you like me to do today?");
             } else if (command.equals("help")) {
-                System.out.println("\t Here are the list of commands:");
-                System.out.println("\t \t - hello");
-                System.out.println("\t \t - list");
-                System.out.println("\t \t - todo [task description]");
-                System.out.println("\t \t - deadline [task description] /by [dd-mm-yyyy hhmm]");
-                System.out.println("\t \t - event [task description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
-                System.out.println("\t \t - mark [task number] / unmark [task number]");
-                System.out.println("\t \t - delete [task number]");
-                System.out.println("\t \t - bye");
+                System.out.println("\tHere are the list of commands:");
+                System.out.println("\t\t- hello");
+                System.out.println("\t\t- list");
+                System.out.println("\t\t- todo [task description]");
+                System.out.println("\t\t- deadline [task description] /by [dd-mm-yyyy hhmm]");
+                System.out.println("\t\t- event [task description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
+                System.out.println("\t\t- mark [task number] / unmark [task number]");
+                System.out.println("\t\t- delete [task number]");
+                System.out.println("\t\t- bye");
             } else if (command.equals("bye")) {
                 System.out.println("\tBye-bye!");
                 this.bye = true;
@@ -213,9 +225,9 @@ class Ui {
         } catch (NonsenseException e) {
             System.out.println("\tOh dear :( I don't understand you");
         } catch (IOException e) {
-            System.out.println("\t Something went wrong with the file: " + e.getMessage());
+            System.out.println("\tSomething went wrong with the file: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("\t Please refer to the proper command formats");
+            System.out.println("\tPlease refer to the proper command formats");
         }
     }
 
