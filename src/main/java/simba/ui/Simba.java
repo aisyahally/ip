@@ -1,3 +1,5 @@
+package simba.ui;
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
