@@ -28,6 +28,16 @@ public class Simba {
         fw.close();
     }
 
+    private static LocalDateTime readDate(String input) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        return LocalDateTime.parse(input, formatter);
+    }
+
+    private static String stringDate(LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        return date.format(formatter);
+    }
+
     public static void main(String[] args) {
         try {
             String filePath = "simba.txt";
@@ -46,8 +56,8 @@ public class Simba {
                     System.out.println("\t \t - hello");
                     System.out.println("\t \t - list");
                     System.out.println("\t \t - todo [task description]");
-                    System.out.println("\t \t - deadline [task description] /by [date and/or time]");
-                    System.out.println("\t \t - event [task description] /by [date and/or time] /to [date and/or time]");
+                    System.out.println("\t \t - deadline [task description] /by [dd-mm-yyyy hhmm]");
+                    System.out.println("\t \t - event [task description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
                     System.out.println("\t \t - mark [task number] / unmark [task number]");
                     System.out.println("\t \t - delete [task number]");
                     System.out.println("\t \t - bye");
@@ -83,8 +93,7 @@ public class Simba {
                         boolean added = false;
                         for (int i = 0; i < command.length(); i++) {
                             if (command.substring(i, i + 1).equals("/")) {
-                                LocalDateTime = 
-                                list.add(new Deadline(command.substring(9, i), command.substring(i + 4)));
+                                list.add(new Deadline(command.substring(9, i), stringDate(readDate(command.substring(i + 4)))));
                                 added = true;
                             }
                         }
@@ -109,8 +118,9 @@ public class Simba {
                         if (startIdx == 0 | endIdx == 0) {
                             throw new EmptyException("Event");
                         }
-                        list.add(new Event(command.substring(6, startIdx - 6), command.substring(startIdx, endIdx - 4),
-                                command.substring(endIdx)));
+                        list.add(new Event(command.substring(6, startIdx - 6),
+                                stringDate(readDate(command.substring(startIdx, endIdx - 5))),
+                                stringDate(readDate(command.substring(endIdx)))));
                     } else {
                         throw new NonsenseException();
                     }
