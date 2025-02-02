@@ -1,7 +1,6 @@
 package simba.ui;
 
 import java.util.Scanner;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
@@ -90,7 +89,7 @@ class Storage {
         FileWriter fw = new FileWriter(this.filePath);
         for (int i = 0; i < list.size(); i++) {
             int idx = i + 1;
-            fw.write(idx + ": " + list.get(i) + "\n");
+            fw.write(idx + ". " + list.get(i) + "\n");
         }
         fw.close();
     }
@@ -161,6 +160,24 @@ class TaskList {
         }
         this.list.get(idx - 1).makeUndone();
         System.out.println("\tOkay! This task is not done: " + list.get(idx - 1));
+    }
+
+    void findTask(String word) {
+        ArrayList<Task> listToPrint = new ArrayList<Task>();
+        for (int i = 0; i < this.list.size(); i++) {
+            if (this.list.get(i).getName().contains(word)) {
+                listToPrint.add(this.list.get(i));
+            }
+        }
+        if (listToPrint.size() == 0) {
+            System.out.println("\tThere are no matching tasks in the list");
+        } else {
+            System.out.println("\tHere are the matching task(s):");
+            for (int i = 0; i < listToPrint.size(); i++) {
+                int idx = i + 1;
+                System.out.println("\t" + idx + ". " + listToPrint.get(i));
+            }
+        }
     }
 
     /**
@@ -263,6 +280,10 @@ class Parser {
             throw new NonsenseException();
         }
     }
+
+    String wordToFind() {
+        return this.command.substring(5);
+    }
 }
 
 class Ui {
@@ -301,6 +322,7 @@ class Ui {
                 System.out.println("\t\t- event [task description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
                 System.out.println("\t\t- mark [task number] / unmark [task number]");
                 System.out.println("\t\t- delete [task number]");
+                System.out.println("\t\t- find [keyword in task]");
                 System.out.println("\t\t- bye");
             } else if (command.equals("bye")) {
                 System.out.println("\tBye-bye!");
@@ -316,6 +338,8 @@ class Ui {
                 }
             } else if (command.contains("delete")) {
                 this.tasks.deleteTask(new Parser(command).idxToDelete());
+            } else if (command.contains("find")) {
+                this.tasks.findTask(new Parser(command).wordToFind());
             } else {
                 this.tasks.addTask(new Parser(command).taskToAdd());
             }
@@ -373,6 +397,10 @@ class Task {
      *
      * @return The string representation of the task.
      */
+    String getName() {
+        return this.taskName;
+    }
+
     public String toString() {
         if (this.isDone) {
             return "[X] " + this.taskName;
