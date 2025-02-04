@@ -49,7 +49,7 @@ test {
 }
 
 application {
-    mainClass.set("simba.ui.Simba")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
