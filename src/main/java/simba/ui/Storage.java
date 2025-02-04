@@ -7,8 +7,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages task storage, including reading from and writing to a file.
+ * The Storage class handles operations related to saving tasks to a file
+ * and loading tasks from the file.
+ *
+ * <p>It supports the following functionalities:
+ * <ul>
+ *     <li>Reading task data from a specified file path.</li>
+ *     <li>Writing task data (e.g., task list) to a specified file.</li>
+ * </ul>
+ * </p>
+ *
+ * <p>For example, a task list can be printed to the console or saved to the file
+ * by using the methods in this class.</p>
+ */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     /**
      * Initializes a new Storage instance with the specified file path.

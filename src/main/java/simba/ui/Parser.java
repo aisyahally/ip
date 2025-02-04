@@ -3,8 +3,18 @@ package simba.ui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Parses commands to create different task types (ToDo, Deadline, Event) or extract task-related information.
+ *
+ * <p>This class handles parsing of various task-related commands, such as "todo", "deadline", and "event",
+ * and converting them into corresponding task objects. It also provides utilities to extract task indices and
+ * format or parse date information from command strings.</p>
+ *
+ * <p>For example, parsing a command like "event Meeting /from 2025-02-10 0900 /to 2025-02-10 1100" will return
+ * an Event task object with start and end times.</p>
+ */
 public class Parser {
-    private String command;
+    private final String command;
 
     /**
      * Initializes a new Parser instance with the specified command.

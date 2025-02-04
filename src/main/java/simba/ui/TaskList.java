@@ -2,6 +2,20 @@ package simba.ui;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks, providing methods to manipulate and manage tasks.
+ * The TaskList class allows adding, deleting, marking tasks as done or undone,
+ * and searching for tasks in the list.
+ *
+ * <p>It supports the following functionalities:
+ * <ul>
+ *     <li>Adding tasks to the list.</li>
+ *     <li>Deleting tasks from the list.</li>
+ *     <li>Marking tasks as done or undone.</li>
+ *     <li>Searching for tasks containing a specific word.</li>
+ * </ul>
+ * </p>
+ */
 public class TaskList {
     private ArrayList<Task> list;
 
@@ -24,8 +38,8 @@ public class TaskList {
             System.out.println("\tTask of this number does not exist");
             return;
         }
-        System.out.println("\tDeleted task: " + list.get(idx-1));
-        this.list.remove(idx-1);
+        System.out.println("\tDeleted task: " + list.get(idx - 1));
+        this.list.remove(idx - 1);
         System.out.println("\tNow you have " + list.size() + " task(s) in the list");
     }
 
@@ -74,7 +88,7 @@ public class TaskList {
                 listToPrint.add(this.list.get(i));
             }
         }
-        if (listToPrint.size() == 0) {
+        if (listToPrint.isEmpty()) {
             System.out.println("\tThere are no matching tasks in the list");
         } else {
             System.out.println("\tHere are the matching task(s):");

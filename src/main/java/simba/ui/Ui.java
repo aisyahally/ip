@@ -2,10 +2,15 @@ package simba.ui;
 
 import java.io.IOException;
 
+/**
+ * Represents the User Interface (UI) of the Simba application.
+ * It handles reading and processing user commands and
+ * interacting with the storage and task list.
+ */
 class Ui {
     private boolean bye;
-    private Storage storage;
-    private TaskList tasks;
+    private final Storage storage;
+    private final TaskList tasks;
 
     /**
      * Initializes a new Ui instance with the specified storage and task list.

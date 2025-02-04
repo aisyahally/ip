@@ -1,7 +1,20 @@
 package simba.ui;
 
+/**
+ * Represents a Deadline task that extends the {@link Task} class.
+ * A Deadline task has a name and a deadline by which it must be completed.
+ *
+ * <p>For example, a Deadline task might look like:
+ * <pre>
+ *     Deadline myTask = new Deadline("Submit report", "2025-02-10");
+ * </pre>
+ * The task would be considered a Deadline task with the name "Submit report" and a deadline of "2025-02-10".
+ *
+ * <p>This class provides a method to return a string representation of the task in the format:
+ * {@code [D] <taskName> (by: <deadline>)}.
+ */
 public class Deadline extends Task {
-    private String deadline;
+    private final String deadline;
 
     /**
      * Initializes a new Deadline instance with the specified name and deadline.
