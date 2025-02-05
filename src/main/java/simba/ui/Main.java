@@ -18,14 +18,18 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setSimba(simba);
             stage.show();
-        } catch(IOException e) {
+            fxmlLoader.<MainWindow>getController().initialGreeting();
+        } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
 }

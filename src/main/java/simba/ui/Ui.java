@@ -8,7 +8,6 @@ import java.io.IOException;
  * interacting with the storage and task list.
  */
 class Ui {
-    private boolean bye;
     private final Storage storage;
     private final TaskList tasks;
 
@@ -19,17 +18,13 @@ class Ui {
      * @param tasks The task list instance.
      */
     Ui(Storage storage, TaskList tasks) {
-        this.bye = false;
         this.storage = storage;
         this.tasks = tasks;
     }
 
-    void greet() {
-        System.out.println("\tHello I am Simba :D");
-        System.out.println("\t  /\\_/\\");
-        System.out.println("\t ( o.o )");
-        System.out.println("\t  > ^ <");
-        System.out.println("\tHow can I help you?");
+    String generateGreeting() {
+        return "Hello I am Simba!\n"
+                + "How can I help you?";
     }
 
     /**
@@ -37,73 +32,61 @@ class Ui {
      *
      * @param command The user command to process.
      */
-    void readCommand(String command) {
+    String readCommand(String command) {
         try {
             this.storage.writeToFile(this.tasks.getList());
             if (command.equals("hello")) {
-                this.printHello();
+                return this.hello();
             } else if (command.equals("help")) {
-                this.printCommands();
+                return this.commands();
             } else if (command.equals("bye")) {
-                this.printBye();
-                this.bye = true;
+                return this.bye();
             } else if (command.equals("list")) {
-                this.storage.printFile();
+                return this.storage.fileToString();
             } else if (command.substring(0, 4).equals("mark")) {
                 int i = Integer.parseInt(command.substring(command.length() - 1));
                 if (command.substring(0, 6).equals("unmark")) {
-                    this.tasks.unmarkTask(i);
+                    return this.tasks.unmarkTask(i);
                 } else {
-                    this.tasks.markTask(i);
+                    return this.tasks.markTask(i);
                 }
             } else if (command.substring(0, 6).equals("delete")) {
-                this.tasks.deleteTask(new Parser(command).idxToDelete());
+                return this.tasks.deleteTask(new Parser(command).idxToDelete());
             } else if (command.substring(0, 4).equals("find")) {
-                this.tasks.findTask(new Parser(command).wordToFind());
+                return this.tasks.findTask(new Parser(command).wordToFind());
             } else {
-                this.tasks.addTask(new Parser(command).taskToAdd());
+                return this.tasks.addTask(new Parser(command).taskToAdd());
             }
         } catch (EmptyException e) {
-            System.out.println("\tOh no! " + e.getMessage() + " description is wrong");
+            return "Oh no! " + e.getMessage() + " description is wrong";
         } catch (InvalidCommandException e) {
-            System.out.println("\tOh dear :( I don't understand you");
+            return "Oh dear :( I don't understand you";
         } catch (IOException e) {
-            System.out.println("\tSomething went wrong with the file: " + e.getMessage());
+            return "Something went wrong with the file: " + e.getMessage();
         } catch (Exception e) {
-            System.out.println("\tPlease refer to the proper command formats");
+            return "Please refer to the proper command formats";
         }
     }
 
-    private void printHello() {
-        System.out.println("\tHello! What would you like me to do today?");
+    private String hello() {
+        return "Hello! What would you like me to do today?";
     }
 
-    private void printCommands() {
-        System.out.println("\tHere are the list of commands:");
-        System.out.println("\t\t- hello");
-        System.out.println("\t\t- list");
-        System.out.println("\t\t- todo [task description]");
-        System.out.println("\t\t- deadline [task description] /by [dd-mm-yyyy hhmm]");
-        System.out.println("\t\t- event [task description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]");
-        System.out.println("\t\t- mark [task number] / unmark [task number]");
-        System.out.println("\t\t- delete [task number]");
-        System.out.println("\t\t- find [keyword in task]");
-        System.out.println("\t\t- bye");
+    private String commands() {
+        return "Here are the list of commands:\n"
+                + "\t- hello\n"
+                + "\t- list\n"
+                + "\t- todo [task description]\n"
+                + "\t- deadline [task description] /by [dd-mm-yyyy hhmm]\n"
+                + "\t- event [task description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]\n"
+                + "\t- mark [task number] / unmark [task number]\n"
+                + "\t- delete [task number]\n"
+                + "\t- find [keyword in task]\n"
+                + "\t- bye";
     }
 
-    private void printBye() {
-        System.out.println("\tBye-bye!");
-        System.out.println("\t  /\\_/\\");
-        System.out.println("\t ( o.o )");
-        System.out.println("\t  > ^ <");
+    private String bye() {
+        return "Bye-bye!";
     }
 
-    /**
-     * Checks if the user has entered the "bye" command.
-     *
-     * @return True if the user has entered the "bye" command, false otherwise.
-     */
-    boolean isBye() {
-        return this.bye;
-    }
 }

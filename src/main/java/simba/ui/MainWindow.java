@@ -22,8 +22,8 @@ public class MainWindow extends AnchorPane {
 
     private Simba simba;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/simba.png"));
-    private Image simbaImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image simbaImage = new Image(this.getClass().getResourceAsStream("/images/simba.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
 
     @FXML
     public void initialize() {
@@ -33,6 +33,13 @@ public class MainWindow extends AnchorPane {
     /** Injects the Simba instance */
     public void setSimba(Simba simba) {
         this.simba = simba;
+    }
+
+    void initialGreeting() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getSimbaDialog(simba.greet(), simbaImage)
+        );
+        userInput.clear();
     }
 
     /**

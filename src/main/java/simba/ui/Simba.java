@@ -1,7 +1,6 @@
 package simba.ui;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * The main class for the Simba task management application.
@@ -35,34 +34,14 @@ public class Simba {
         this.ui = new Ui(this.storage, this.tasks);
     }
 
-    /**
-     * The main entry point for the Simba application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Simba().run();
-    }
-
-    /**
-     * Runs the Simba application, displaying a welcome message and processing user commands.
-     */
-    public void run() {
-        ui.greet();
-        Scanner sc = new Scanner(System.in);
-        while (true) {
-            String command = sc.nextLine();
-            this.ui.readCommand(command);
-            if (this.ui.isBye()) {
-                break;
-            }
-        }
+    public String greet() {
+        return ui.generateGreeting();
     }
 
     /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Simba heard: " + input;
+        return ui.readCommand(input);
     }
 }

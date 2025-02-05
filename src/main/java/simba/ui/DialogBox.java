@@ -1,7 +1,6 @@
 package simba.ui;
 
 import java.io.IOException;
-import java.util.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +14,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 public class DialogBox extends HBox {
+    @FXML
     private Label dialog;
+    @FXML
     private ImageView displayPicture;
 
     public DialogBox(String text, Image img) {
@@ -28,8 +29,8 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        dialog.setText(text);
-        displayPicture.setImage(img);
+        this.dialog.setText(text);
+        this.displayPicture.setImage(img);
     }
 
     /**
@@ -40,6 +41,7 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(tmp);
         this.getChildren().setAll(tmp);
+        dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {

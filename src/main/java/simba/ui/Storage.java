@@ -39,15 +39,17 @@ public class Storage {
      *
      * @throws FileNotFoundException If the file does not exist.
      */
-    void printFile() throws FileNotFoundException {
+    String fileToString() throws FileNotFoundException {
         File file = new File(this.filePath);
         Scanner sc = new Scanner(file);
+        String result = "";
         if (!sc.hasNext()) {
-            System.out.println("\tTask list is empty");
+            result = "Task list is empty";
         }
         while (sc.hasNext()) {
-            System.out.println("\t" + sc.nextLine());
+            result += sc.nextLine() + "\n";
         }
+        return result;
     }
 
     /**
