@@ -33,14 +33,14 @@ public class TaskList {
      *
      * @param idx The index of the task to delete.
      */
-    void deleteTask(int idx) {
-        if (idx >= this.list.size()) {
-            System.out.println("\tTask of this number does not exist");
-            return;
+    String deleteTask(int idx) {
+        if (idx > this.list.size()) {
+            return "Task of this number does not exist";
         }
-        System.out.println("\tDeleted task: " + list.get(idx - 1));
+        String result = "Deleted task: " + list.get(idx - 1) + "\n";
         this.list.remove(idx - 1);
-        System.out.println("\tNow you have " + list.size() + " task(s) in the list");
+        result += "Now you have " + list.size() + " task(s) in the list";
+        return result;
     }
 
     /**
@@ -48,10 +48,11 @@ public class TaskList {
      *
      * @param task The task to add.
      */
-    void addTask(Task task) {
+    String addTask(Task task) {
         this.list.add(task);
-        System.out.println("\tAdded: " + list.get(list.size() - 1));
-        System.out.println("\tNow you have " + list.size() + " task(s) in the list");
+        String result = "Added: " + list.get(list.size() - 1) + "\n";
+        result += "Now you have " + list.size() + " task(s) in the list";
+        return result;
     }
 
     /**
@@ -59,29 +60,27 @@ public class TaskList {
      *
      * @param idx The index of the task to mark as done.
      */
-    void markTask(int idx) {
+    String markTask(int idx) {
         if (idx > this.list.size()) {
-            System.out.println("\tTask of this number does not exist");
-            return;
+            return "Task of this number does not exist";
         }
         this.list.get(idx - 1).makeDone();
-        System.out.println("\tAlright! This task is done: " + list.get(idx - 1));
+        return "Alright! This task is done: " + list.get(idx - 1);
     }
     /**
      * Marks a task as not done at the specified index.
      *
      * @param idx The index of the task to mark as not done.
      */
-    void unmarkTask(int idx) {
+    String unmarkTask(int idx) {
         if (idx > this.list.size()) {
-            System.out.println("\tTask of this number does not exist");
-            return;
+            return "Task of this number does not exist";
         }
         this.list.get(idx - 1).makeUndone();
-        System.out.println("\tOkay! This task is not done: " + list.get(idx - 1));
+        return "Okay! This task is not done: " + list.get(idx - 1);
     }
 
-    void findTask(String word) {
+    String findTask(String word) {
         ArrayList<Task> listToPrint = new ArrayList<Task>();
         for (int i = 0; i < this.list.size(); i++) {
             if (this.list.get(i).getName().contains(word)) {
@@ -89,13 +88,14 @@ public class TaskList {
             }
         }
         if (listToPrint.isEmpty()) {
-            System.out.println("\tThere are no matching tasks in the list");
+            return "There are no matching tasks in the list";
         } else {
-            System.out.println("\tHere are the matching task(s):");
+            String result = "Here are the matching task(s):\n";
             for (int i = 0; i < listToPrint.size(); i++) {
                 int idx = i + 1;
-                System.out.println("\t" + idx + ". " + listToPrint.get(i));
+                result += "\t" + idx + ". " + listToPrint.get(i) + "\n";
             }
+            return result;
         }
     }
 

@@ -64,44 +64,56 @@ public class Parser {
      */
     Task taskToAdd() throws Exception {
         if (this.command.substring(0, 4).equals("todo")) {
-            if (this.command.length() < 5) {
-                throw new EmptyException("ToDo");
-            }
-            return new ToDo(this.command.substring(5));
+            return this.parseToDo();
         } else if (this.command.substring(0, 8).equals("deadline")) {
-            if (this.command.length() < 10) {
-                throw new EmptyException("Deadline");
-            }
-            for (int i = 0; i < this.command.length(); i++) {
-                if (this.command.substring(i, i + 1).equals("/")) {
-                    return new Deadline(command.substring(9, i), stringDate(readDate(command.substring(i + 4))));
-                }
-            }
-            throw new EmptyException("Deadline");
+            return this.parseDeadline();
         } else if (this.command.substring(0, 5).equals("event")) {
-            if (this.command.length() < 7) {
-                throw new EmptyException("Event");
+            return this.parseEvent();
+        } else {
+            throw new InvalidCommandException();
+        }
+    }
+
+    private ToDo parseToDo() throws EmptyException {
+        if (this.command.length() < 5) {
+            throw new EmptyException("ToDo");
+        }
+        return new ToDo(this.command.substring(5));
+    }
+
+    private Deadline parseDeadline() throws EmptyException {
+        if (this.command.length() < 10) {
+            throw new EmptyException("Deadline");
+        }
+        for (int i = 0; i < this.command.length(); i++) {
+            if (this.command.substring(i, i + 1).equals("/")) {
+                return new Deadline(command.substring(9, i), stringDate(readDate(command.substring(i + 4))));
             }
-            int startIdx = 0;
-            int endIdx = 0;
-            for (int i = 0; i < this.command.length(); i++) {
-                if (this.command.substring(i, i + 1).equals("/")) {
-                    if (this.command.substring(i + 1, i + 2).equals("f")) {
-                        startIdx = i + 6;
-                    } else {
-                        endIdx = i + 4;
-                    }
+        }
+        throw new EmptyException("Deadline");
+    }
+
+    private Event parseEvent() throws EmptyException {
+        if (this.command.length() < 7) {
+            throw new EmptyException("Event");
+        }
+        int startIdx = 0;
+        int endIdx = 0;
+        for (int i = 0; i < this.command.length(); i++) {
+            if (this.command.substring(i, i + 1).equals("/")) {
+                if (this.command.substring(i + 1, i + 2).equals("f")) {
+                    startIdx = i + 6;
+                } else {
+                    endIdx = i + 4;
                 }
             }
-            if (startIdx == 0 | endIdx == 0) {
-                throw new EmptyException("Event");
-            }
-            return new Event(command.substring(6, startIdx - 6),
-                    stringDate(readDate(command.substring(startIdx, endIdx - 5))),
-                    stringDate(readDate(command.substring(endIdx))));
-        } else {
-            throw new NonsenseException();
         }
+        if (startIdx == 0 | endIdx == 0) {
+            throw new EmptyException("Event");
+        }
+        return new Event(command.substring(6, startIdx - 6),
+                stringDate(readDate(command.substring(startIdx, endIdx - 5))),
+                stringDate(readDate(command.substring(endIdx))));
     }
 
     String wordToFind() {
