@@ -20,17 +20,17 @@ import java.util.Scanner;
  * such as "todo" or "deadline" will be processed and corresponding tasks will be added to the task list.</p>
  */
 public class Simba {
+    private static final String FILE_PATH = "simba.txt";
+
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
 
     /**
-     * Initializes a new Simba instance with the specified file path.
-     *
-     * @param filePath The path to the file where tasks are stored.
+     * Initializes a new Simba instance.
      */
-    public Simba(String filePath) {
-        this.storage = new Storage(filePath);
+    public Simba() {
+        this.storage = new Storage(FILE_PATH);
         this.tasks = new TaskList(new ArrayList<Task>());
         this.ui = new Ui(this.storage, this.tasks);
     }
@@ -41,18 +41,14 @@ public class Simba {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new Simba("simba.txt").run();
+        new Simba().run();
     }
 
     /**
      * Runs the Simba application, displaying a welcome message and processing user commands.
      */
     public void run() {
-        System.out.println("\tHello I am Simba :D");
-        System.out.println("\t  /\\_/\\");
-        System.out.println("\t ( o.o )");
-        System.out.println("\t  > ^ <");
-        System.out.println("\tHow can I help you?");
+        ui.greet();
         Scanner sc = new Scanner(System.in);
         while (true) {
             String command = sc.nextLine();
