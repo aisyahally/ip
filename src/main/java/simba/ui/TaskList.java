@@ -33,7 +33,7 @@ public class TaskList {
      *
      * @param idx The index of the task to delete.
      */
-    String deleteTask(int idx) {
+    String deleteTaskAsString(int idx) {
         if (idx > this.list.size()) {
             return "Task of this number does not exist";
         }
@@ -48,7 +48,7 @@ public class TaskList {
      *
      * @param task The task to add.
      */
-    String addTask(Task task) {
+    String addTaskAsString(Task task) {
         this.list.add(task);
         String result = "Added: " + list.get(list.size() - 1) + "\n";
         result += "Now you have " + list.size() + " task(s) in the list";
@@ -60,7 +60,7 @@ public class TaskList {
      *
      * @param idx The index of the task to mark as done.
      */
-    String markTask(int idx) {
+    String markTaskAsString(int idx) {
         if (idx > this.list.size()) {
             return "Task of this number does not exist";
         }
@@ -72,7 +72,7 @@ public class TaskList {
      *
      * @param idx The index of the task to mark as not done.
      */
-    String unmarkTask(int idx) {
+    String unmarkTaskAsString(int idx) {
         if (idx > this.list.size()) {
             return "Task of this number does not exist";
         }
@@ -80,7 +80,7 @@ public class TaskList {
         return "Okay! This task is not done: " + list.get(idx - 1);
     }
 
-    String findTask(String word) {
+    String findTaskAsString(String word) {
         ArrayList<Task> listToPrint = new ArrayList<Task>();
         for (int i = 0; i < this.list.size(); i++) {
             if (this.list.get(i).getName().contains(word)) {

@@ -36,26 +36,26 @@ class Ui {
         try {
             this.storage.writeToFile(this.tasks.getList());
             if (command.equals("hello")) {
-                return this.hello();
+                return this.helloAsString();
             } else if (command.equals("help")) {
-                return this.commands();
+                return this.commandsAsString();
             } else if (command.equals("bye")) {
-                return this.bye();
+                return this.byeAsString();
             } else if (command.equals("list")) {
                 return this.storage.fileToString();
             } else if (command.substring(0, 4).equals("mark")) {
                 int i = Integer.parseInt(command.substring(command.length() - 1));
                 if (command.substring(0, 6).equals("unmark")) {
-                    return this.tasks.unmarkTask(i);
+                    return this.tasks.unmarkTaskAsString(i);
                 } else {
-                    return this.tasks.markTask(i);
+                    return this.tasks.markTaskAsString(i);
                 }
             } else if (command.substring(0, 6).equals("delete")) {
-                return this.tasks.deleteTask(new Parser(command).idxToDelete());
+                return this.tasks.deleteTaskAsString(new Parser(command).idxToDelete());
             } else if (command.substring(0, 4).equals("find")) {
-                return this.tasks.findTask(new Parser(command).wordToFind());
+                return this.tasks.findTaskAsString(new Parser(command).wordToFind());
             } else {
-                return this.tasks.addTask(new Parser(command).taskToAdd());
+                return this.tasks.addTaskAsString(new Parser(command).taskToAdd());
             }
         } catch (EmptyException e) {
             return "Oh no! " + e.getMessage() + " description is wrong";
@@ -68,11 +68,11 @@ class Ui {
         }
     }
 
-    private String hello() {
+    private String helloAsString() {
         return "Hello! What would you like me to do today?";
     }
 
-    private String commands() {
+    private String commandsAsString() {
         return "Here are the list of commands:\n"
                 + "\t- hello\n"
                 + "\t- list\n"
@@ -85,7 +85,7 @@ class Ui {
                 + "\t- bye";
     }
 
-    private String bye() {
+    private String byeAsString() {
         return "Bye-bye!";
     }
 
