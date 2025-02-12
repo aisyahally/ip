@@ -2,6 +2,7 @@ package simba.ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Parses commands to create different task types (ToDo, Deadline, Event) or extract task-related information.
@@ -31,7 +32,7 @@ public class Parser {
      * @param input The date string to parse.
      * @return The parsed LocalDateTime object.
      */
-    private static LocalDateTime readDate(String input) {
+    private static LocalDateTime readDate(String input) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         return LocalDateTime.parse(input, formatter);
     }
@@ -60,28 +61,26 @@ public class Parser {
      * Parses the command and creates a new task to add.
      *
      * @return The task to add.
-     * @throws Exception If the command is invalid or the task description is empty.
+     * @throws EmptyException If the command is invalid or the task description is empty.
      */
-    Task taskToAdd() throws Exception {
+    Task taskToAdd() throws EmptyException {
         if (this.command.substring(0, 4).equals("todo")) {
             return this.parseToDo();
-        } else if (this.command.substring(0, 8).equals("deadline")) {
-            return this.parseDeadline();
         } else if (this.command.substring(0, 5).equals("event")) {
             return this.parseEvent();
         } else {
-            throw new InvalidCommandException();
+            return this.parseDeadline();
         }
     }
 
     private ToDo parseToDo() throws EmptyException {
-        if (this.command.length() < 5) {
+        if (this.command.length() < 6) {
             throw new EmptyException("ToDo");
         }
         return new ToDo(this.command.substring(5));
     }
 
-    private Deadline parseDeadline() throws EmptyException {
+    private Deadline parseDeadline() throws EmptyException, DateTimeParseException {
         if (this.command.length() < 10) {
             throw new EmptyException("Deadline");
         }
@@ -93,7 +92,7 @@ public class Parser {
         throw new EmptyException("Deadline");
     }
 
-    private Event parseEvent() throws EmptyException {
+    private Event parseEvent() throws EmptyException, DateTimeParseException {
         if (this.command.length() < 7) {
             throw new EmptyException("Event");
         }
