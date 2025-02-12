@@ -28,9 +28,10 @@ public class Parser {
 
     /**
      * Parses a date string into a LocalDateTime object.
+     * This method uses a specific date-time pattern to parse the input string.
      *
-     * @param input The date string to parse.
-     * @return The parsed LocalDateTime object.
+     * @param input The date string to parse, in the format "dd-MM-yyyy HHmm".
+     * @return The parsed LocalDateTime object representing the provided date and time.
      */
     private static LocalDateTime readDate(String input) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
@@ -39,6 +40,7 @@ public class Parser {
 
     /**
      * Formats a LocalDateTime object into a string.
+     * The formatted string will follow the pattern "dd MMM yyyy HH:mm".
      *
      * @param date The LocalDateTime object to format.
      * @return The formatted date string.
