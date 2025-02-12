@@ -116,6 +116,12 @@ class Ui {
         return "Bye-bye!";
     }
 
+    /**
+     * Checks if the command is a "mark" command.
+     *
+     * @param command The command string to check.
+     * @return True if the command starts with "mark ", false otherwise.
+     */
     private boolean isMark(String command) {
         if (command.length() > 4) {
             boolean isMark = command.substring(0, 5).equals("mark ");
@@ -124,6 +130,12 @@ class Ui {
         return false;
     }
 
+    /**
+     * Checks if the command is an "unmark" command.
+     *
+     * @param command The command string to check.
+     * @return True if the command starts with "unmark ", false otherwise.
+     */
     private boolean isUnmark(String command) {
         if (command.length() > 6) {
             boolean isUnmark = command.substring(0, 7).equals("unmark ");
@@ -132,6 +144,12 @@ class Ui {
         return false;
     }
 
+    /**
+     * Checks if the command is a "delete" command.
+     *
+     * @param command The command string to check.
+     * @return True if the command starts with "delete ", false otherwise.
+     */
     private boolean isDelete(String command) {
         if (command.length() > 6) {
             boolean isDelete = command.substring(0, 7).equals("delete ");
@@ -140,6 +158,12 @@ class Ui {
         return false;
     }
 
+    /**
+     * Checks if the command is a "find" command.
+     *
+     * @param command The command string to check.
+     * @return True if the command starts with "find ", false otherwise.
+     */
     private boolean isFind(String command) {
         if (command.length() > 4) {
             boolean isFind = command.substring(0, 5).equals("find ");
@@ -148,6 +172,12 @@ class Ui {
         return false;
     }
 
+    /**
+     * Checks if the command is a task-related command (todo, deadline, or event).
+     *
+     * @param command The command string to check.
+     * @return True if the command starts with "todo ", "deadline ", or "event ", false otherwise.
+     */
     private boolean isTask(String command) {
         if (command.length() > 8) {
             boolean isDeadline = command.substring(0, 9).equals("deadline ");
