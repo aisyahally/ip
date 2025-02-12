@@ -22,15 +22,24 @@ class Ui {
         this.tasks = tasks;
     }
 
+    /**
+     * Generates a greeting message for the user.
+     *
+     * @return A string message greeting the user and asking how they can be helped.
+     */
     String generateGreeting() {
         return "Hello I am Simba!\n"
                 + "How can I help you?";
     }
 
     /**
-     * Reads and processes a user command.
+     * Reads and processes a user command and returns a response based on the command.
+     * It checks the command and performs the appropriate action, such as marking tasks,
+     * deleting tasks, adding tasks, or displaying a list of commands.
      *
      * @param command The user command to process.
+     * @return A string response based on the processed command or an error message if the command is invalid.
+     * @throws IOException If an error occurs while writing or reading from a file.
      */
     String readCommand(String command) {
         try {
@@ -68,10 +77,20 @@ class Ui {
         }
     }
 
+    /**
+     * Returns a greeting message to prompt the user for an action.
+     *
+     * @return A string message asking what the user would like to do.
+     */
     private String helloAsString() {
         return "Hello! What would you like me to do today?";
     }
 
+    /**
+     * Provides a list of available commands that the user can issue to interact with the application.
+     *
+     * @return A string listing all the commands available for the user.
+     */
     private String commandsAsString() {
         return "Here are the list of commands:\n"
                 + "\t- hello\n"
@@ -85,6 +104,11 @@ class Ui {
                 + "\t- bye";
     }
 
+    /**
+     * Returns a farewell message when the user exits the application.
+     *
+     * @return A string message bidding farewell to the user.
+     */
     private String byeAsString() {
         return "Bye-bye!";
     }
