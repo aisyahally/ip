@@ -20,12 +20,10 @@ public class TaskList {
     private ArrayList<Task> list;
 
     /**
-     * Initializes a new TaskList instance with the specified list of tasks.
-     *
-     * @param list The list of tasks.
+     * Initializes a new TaskList instance with an empty list of tasks.
      */
-    TaskList(ArrayList<Task> list) {
-        this.list = list;
+    TaskList() {
+        this.list = new ArrayList<Task>();
     }
 
     /**
@@ -52,6 +50,7 @@ public class TaskList {
         this.list.add(task);
         String result = "Added: " + list.get(list.size() - 1) + "\n";
         result += "Now you have " + list.size() + " task(s) in the list";
+        list.sort(new TaskComparator());
         return result;
     }
 

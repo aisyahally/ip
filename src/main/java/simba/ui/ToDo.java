@@ -1,5 +1,7 @@
 package simba.ui;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a ToDo task, which is a type of task that doesn't have a specific deadline or time range.
  * Inherits from the Task class and adds functionality to display the task as a ToDo item.
@@ -13,6 +15,18 @@ public class ToDo extends Task {
      */
     ToDo(String name) {
         super(name);
+    }
+
+    String getType() {
+        return "ToDo";
+    }
+
+    LocalDateTime getDate() {
+        return null;
+    }
+
+    LocalDateTime getEndDate() {
+        return null;
     }
 
     /**

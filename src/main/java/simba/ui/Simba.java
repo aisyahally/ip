@@ -30,7 +30,7 @@ public class Simba {
      */
     public Simba() {
         this.storage = new Storage(FILE_PATH);
-        this.tasks = new TaskList(new ArrayList<Task>());
+        this.tasks = new TaskList();
         this.ui = new Ui(this.storage, this.tasks);
     }
 

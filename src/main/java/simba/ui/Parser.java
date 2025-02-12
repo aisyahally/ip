@@ -40,18 +40,6 @@ public class Parser {
     }
 
     /**
-     * Formats a LocalDateTime object into a string.
-     * The formatted string will follow the pattern "dd MMM yyyy HH:mm".
-     *
-     * @param date The LocalDateTime object to format.
-     * @return The formatted date string.
-     */
-    private static String stringDate(LocalDateTime date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
-        return date.format(formatter);
-    }
-
-    /**
      * Extracts the index of the task to delete from the command.
      *
      * @return The index of the task to delete.
@@ -105,7 +93,7 @@ public class Parser {
         }
         for (int i = 0; i < this.command.length(); i++) {
             if (this.command.substring(i, i + 1).equals("/")) {
-                return new Deadline(command.substring(9, i), stringDate(readDate(command.substring(i + 4))));
+                return new Deadline(command.substring(9, i), readDate(command.substring(i + 4)));
             }
         }
         throw new EmptyException("Deadline");
@@ -138,8 +126,8 @@ public class Parser {
             throw new EmptyException("Event");
         }
         return new Event(command.substring(6, startIdx - 6),
-                stringDate(readDate(command.substring(startIdx, endIdx - 5))),
-                stringDate(readDate(command.substring(endIdx))));
+                readDate(command.substring(startIdx, endIdx - 5)),
+                readDate(command.substring(endIdx)));
     }
 
     /**

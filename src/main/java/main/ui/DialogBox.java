@@ -1,4 +1,4 @@
-package simba.ui;
+package main.ui;
 
 import java.io.IOException;
 

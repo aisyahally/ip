@@ -1,5 +1,6 @@
 package simba.ui;
 
+import java.time.LocalDateTime;
 
 /**
  * Represents an Event task that extends the {@link Task} class.
@@ -16,8 +17,8 @@ package simba.ui;
  * {@code [E] <taskName> (from: <start> to: <end>)}.
  */
 public class Event extends Task {
-    private final String start;
-    private final String end;
+    private final LocalDateTime start;
+    private final LocalDateTime end;
 
     /**
      * Initializes a new Event instance with the specified name, start time, and end time.
@@ -26,10 +27,22 @@ public class Event extends Task {
      * @param start The start time of the event.
      * @param end The end time of the event.
      */
-    Event(String name, String start, String end) {
+    Event(String name, LocalDateTime start, LocalDateTime end) {
         super(name);
         this.start = start;
         this.end = end;
+    }
+
+    String getType() {
+        return "Event";
+    }
+
+    LocalDateTime getDate() {
+        return this.start;
+    }
+
+    LocalDateTime getEndDate() {
+        return this.end;
     }
 
     /**
@@ -38,6 +51,7 @@ public class Event extends Task {
      * @return The string representation of the Event task.
      */
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
+        return "[E] " + super.toString() + " (from: " + super.stringDate(this.start)
+                + " to: " + super.stringDate(this.end) + ")";
     }
 }

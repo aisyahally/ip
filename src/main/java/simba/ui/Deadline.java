@@ -1,5 +1,7 @@
 package simba.ui;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a Deadline task that extends the {@link Task} class.
  * A Deadline task has a name and a deadline by which it must be completed.
@@ -14,7 +16,7 @@ package simba.ui;
  * {@code [D] <taskName> (by: <deadline>)}.
  */
 public class Deadline extends Task {
-    private final String deadline;
+    private final LocalDateTime deadline;
 
     /**
      * Initializes a new Deadline instance with the specified name and deadline.
@@ -22,9 +24,21 @@ public class Deadline extends Task {
      * @param name The name of the Deadline task.
      * @param deadline The deadline of the task.
      */
-    Deadline(String name, String deadline) {
+    Deadline(String name, LocalDateTime deadline) {
         super(name);
         this.deadline = deadline;
+    }
+
+    String getType() {
+        return "Deadline";
+    }
+
+    LocalDateTime getDate() {
+        return this.deadline;
+    }
+
+    LocalDateTime getEndDate() {
+        return null;
     }
 
     /**
@@ -33,6 +47,6 @@ public class Deadline extends Task {
      * @return The string representation of the Deadline task.
      */
     public String toString() {
-        return "[D] " + super.toString() + " (by: " + this.deadline + ")";
+        return "[D] " + super.toString() + " (by: " + super.stringDate(this.deadline) + ")";
     }
 }

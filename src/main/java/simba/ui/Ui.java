@@ -179,18 +179,19 @@ class Ui {
      * @return True if the command starts with "todo ", "deadline ", or "event ", false otherwise.
      */
     private boolean isTask(String command) {
-        if (command.length() > 8) {
-            boolean isDeadline = command.substring(0, 9).equals("deadline ");
-            return isDeadline;
-        } else if (command.length() > 5) {
-            boolean isEvent = command.substring(0, 6).equals("event ");
-            return isEvent;
-        } else if (command.length() > 4) {
-            boolean isToDo = command.substring(0, 5).equals("todo ");
-            return isToDo;
-        } else {
-            return false;
+        boolean isDeadline = false;
+        boolean isEvent = false;
+        boolean isToDo = false;
+        if (command.length() > 4) {
+            isToDo = command.substring(0, 5).equals("todo ");
+            if (command.length() > 5) {
+                isEvent = command.substring(0, 6).equals("event ");
+                if (command.length() > 8) {
+                    isDeadline = command.substring(0, 9).equals("deadline ");
+                }
+            }
         }
+        return isDeadline || isEvent || isToDo;
     }
 
 }

@@ -1,5 +1,8 @@
 package simba.ui;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Manages task storage, including reading from and writing to a file.
  * The Storage class handles operations related to saving tasks to a file
@@ -15,7 +18,7 @@ package simba.ui;
  * <p>For example, a task list can be printed to the console or saved
  * to the file by using the methods in this class.</p>
  */
-public class Task {
+public abstract class Task {
     private boolean isDone;
     private final String taskName;
 
@@ -50,6 +53,24 @@ public class Task {
      */
     String getName() {
         return this.taskName;
+    }
+
+    abstract String getType();
+
+    abstract LocalDateTime getDate();
+
+    abstract LocalDateTime getEndDate();
+
+    /**
+     * Formats a LocalDateTime object into a string.
+     * The formatted string will follow the pattern "dd MMM yyyy HH:mm".
+     *
+     * @param date The LocalDateTime object to format.
+     * @return The formatted date string.
+     */
+    protected String stringDate(LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        return date.format(formatter);
     }
 
     /**

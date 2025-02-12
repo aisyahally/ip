@@ -1,4 +1,4 @@
-package simba.ui;
+package main.ui;
 
 import java.io.IOException;
 
@@ -8,12 +8,14 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import simba.ui.Simba;
+
 /**
  * A GUI for Simba using FXML.
  */
 public class Main extends Application {
 
-    private Simba simba = new Simba();
+    private final Simba simba = new Simba();
 
     @Override
     public void start(Stage stage) {

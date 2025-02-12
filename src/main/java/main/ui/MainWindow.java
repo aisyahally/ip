@@ -1,4 +1,4 @@
-package simba.ui;
+package main.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import simba.ui.Simba;
+
 /**
  * Controller for the main GUI.
  */
@@ -22,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Simba simba;
 
-    private Image simbaImage = new Image(this.getClass().getResourceAsStream("/images/simba.png"));
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private final Image simbaImage = new Image(this.getClass().getResourceAsStream("/images/simba.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
 
     @FXML
     public void initialize() {
