@@ -1,7 +1,5 @@
 # Simba User Guide
 
-![Sample Simba screenshot](/assets/images/Ui.png)
-
 Ever worried about forgetting your daily tasks? Simba's here to be your helping hand!  
 **Text-based**, <ins>easy to learn</ins> and _fast to use_ -- you'll never have to worry again.
 
@@ -23,3 +21,5 @@ You can:
 - [X] **mark** the tasks done / undone
 - [X] **find** tasks by matching words
 - [ ] **edit** tasks (coming soon)
+
+![simba sample screenshot](https://aisyahally.github.io/ip//Ui.png)
