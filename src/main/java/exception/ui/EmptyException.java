@@ -1,4 +1,4 @@
-package simba.ui;
+package exception.ui;
 
 /**
  * Thrown when a task description is empty.

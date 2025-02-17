@@ -52,6 +52,11 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = simba.getResponse(input);
+
+        if (input.isBlank()) {
+            return;
+        }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getSimbaDialog(response, simbaImage)

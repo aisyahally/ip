@@ -41,6 +41,20 @@ public class Deadline extends Task {
         return null;
     }
 
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Deadline objAsDeadline = (Deadline) obj;
+        return this.getName().equals(objAsDeadline.getName())
+                && this.getDate().equals(objAsDeadline.getDate());
+    }
+
     /**
      * Returns a string representation of the Deadline task.
      *

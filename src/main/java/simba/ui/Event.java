@@ -45,6 +45,21 @@ public class Event extends Task {
         return this.end;
     }
 
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Event objAsEvent = (Event) obj;
+        return this.getName().equals(objAsEvent.getName())
+                && this.getDate().equals(objAsEvent.getDate())
+                && this.getEndDate().equals(objAsEvent.getDate());
+    }
+
     /**
      * Returns a string representation of the Event task.
      *

@@ -2,6 +2,8 @@ package simba.ui;
 
 import java.util.ArrayList;
 
+import exception.ui.DuplicateTaskException;
+
 /**
  * Represents a list of tasks, providing methods to manipulate and manage tasks.
  * The TaskList class allows adding, deleting, marking tasks as done or undone,
@@ -35,7 +37,8 @@ public class TaskList {
         if (idx > this.list.size()) {
             return "Task of this number does not exist";
         }
-        String result = "Deleted task: " + list.get(idx - 1) + "\n";
+        String result = "Deleted task:\n"
+                + idx + ". " + list.get(idx - 1) + "\n";
         this.list.remove(idx - 1);
         result += "Now you have " + list.size() + " task(s) in the list";
         return result;
@@ -46,9 +49,17 @@ public class TaskList {
      *
      * @param task The task to add.
      */
-    String addTaskAsString(Task task) {
+    String addTaskAsString(Task task) throws DuplicateTaskException {
+
+        for (int i = 0; i < list.size(); i++) {
+            if (task.equals(list.get(i))) {
+                throw new DuplicateTaskException();
+            }
+        }
+
         this.list.add(task);
-        String result = "Added: " + list.get(list.size() - 1) + "\n";
+        String result = "Added task:\n"
+                + list.size() + ". " + list.get(list.size() - 1) + "\n";
         result += "Now you have " + list.size() + " task(s) in the list";
         list.sort(new TaskComparator());
         return result;
@@ -64,7 +75,8 @@ public class TaskList {
             return "Task of this number does not exist";
         }
         this.list.get(idx - 1).makeDone();
-        return "Alright! This task is done: " + list.get(idx - 1);
+        return "Alright! This task is done:\n"
+                + idx + ". " + list.get(idx - 1);
     }
     /**
      * Marks a task as not done at the specified index.
@@ -76,24 +88,23 @@ public class TaskList {
             return "Task of this number does not exist";
         }
         this.list.get(idx - 1).makeUndone();
-        return "Okay! This task is not done: " + list.get(idx - 1);
+        return "Okay! This task is not done:\n"
+                + idx + ". " + list.get(idx - 1);
     }
 
     String findTaskAsString(String word) {
-        ArrayList<Task> listToPrint = new ArrayList<Task>();
+        boolean found = false;
+        String result = "Here are the matching task(s):\n";
         for (int i = 0; i < this.list.size(); i++) {
             if (this.list.get(i).getName().contains(word)) {
-                listToPrint.add(this.list.get(i));
+                int idx = i + 1;
+                result += idx + ". " + list.get(i) + "\n";
+                found = true;
             }
         }
-        if (listToPrint.isEmpty()) {
+        if (!found) {
             return "There are no matching tasks in the list";
         } else {
-            String result = "Here are the matching task(s):\n";
-            for (int i = 0; i < listToPrint.size(); i++) {
-                int idx = i + 1;
-                result += "\t" + idx + ". " + listToPrint.get(i) + "\n";
-            }
             return result;
         }
     }

@@ -6,6 +6,7 @@
 .text-field {
     -fx-background-color: #dfc6c0;
     -fx-font: 18px "Trebuchet MS";
+    -fx-highlight-fill: #bf997e;
 }
 
 .text-field .prompt-text {

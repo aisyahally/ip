@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import exception.ui.EmptyException;
+import exception.ui.InvalidEventDateException;
+
 /**
  * Parses commands to create different task types (ToDo, Deadline, Event) or extract task-related information.
  *
@@ -56,7 +59,7 @@ public class Parser {
      * @return The task to add (ToDo, Deadline, or Event).
      * @throws EmptyException If the command is invalid or the task description is empty.
      */
-    Task taskToAdd() throws EmptyException {
+    Task taskToAdd() throws EmptyException, DateTimeParseException, InvalidEventDateException {
         if (this.command.substring(0, 4).equals("todo")) {
             return this.parseToDo();
         } else if (this.command.substring(0, 5).equals("event")) {
@@ -107,7 +110,7 @@ public class Parser {
      * @throws EmptyException If the "event" command does not contain a description or time information.
      * @throws DateTimeParseException If the date string cannot be parsed into a LocalDateTime object.
      */
-    private Event parseEvent() throws EmptyException, DateTimeParseException {
+    private Event parseEvent() throws EmptyException, DateTimeParseException, InvalidEventDateException {
         if (this.command.length() < 7) {
             throw new EmptyException("Event");
         }
@@ -125,9 +128,15 @@ public class Parser {
         if (startIdx == 0 | endIdx == 0) {
             throw new EmptyException("Event");
         }
-        return new Event(command.substring(6, startIdx - 6),
-                readDate(command.substring(startIdx, endIdx - 5)),
-                readDate(command.substring(endIdx)));
+
+        LocalDateTime startDate = readDate(command.substring(startIdx, endIdx - 5));
+        LocalDateTime endDate = readDate(command.substring(endIdx));
+
+        if (startDate.isAfter(endDate)) {
+            throw new InvalidEventDateException();
+        }
+
+        return new Event(command.substring(6, startIdx - 6), startDate, endDate);
     }
 
     /**

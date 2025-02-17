@@ -61,6 +61,8 @@ public abstract class Task {
 
     abstract LocalDateTime getEndDate();
 
+    public abstract boolean equals(Object obj);
+
     /**
      * Formats a LocalDateTime object into a string.
      * The formatted string will follow the pattern "dd MMM yyyy HH:mm".

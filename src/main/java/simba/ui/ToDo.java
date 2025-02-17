@@ -29,6 +29,19 @@ public class ToDo extends Task {
         return null;
     }
 
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        ToDo objAsToDo = (ToDo) obj;
+        return this.getName().equals(objAsToDo.getName());
+    }
+
     /**
      * Returns a string representation of the ToDo task.
      *

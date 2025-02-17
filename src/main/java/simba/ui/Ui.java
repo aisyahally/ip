@@ -3,6 +3,11 @@ package simba.ui;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
+import exception.ui.DuplicateTaskException;
+import exception.ui.EmptyException;
+import exception.ui.InvalidCommandException;
+import exception.ui.InvalidEventDateException;
+
 /**
  * Represents the User Interface (UI) of the Simba application.
  * It handles reading and processing user commands and
@@ -46,7 +51,7 @@ class Ui {
         assert command != null && !command.isEmpty() : "Command should not be null or empty";
         try {
             this.storage.writeToFile(this.tasks.getList());
-            if (command.equals("hello")) {
+            if (command.equals("hello") || command.equals("hi")) {
                 return this.helloAsString();
             } else if (command.equals("help")) {
                 return this.commandsAsString();
@@ -54,6 +59,8 @@ class Ui {
                 return this.byeAsString();
             } else if (command.equals("list")) {
                 return this.storage.fileToString();
+            } else if (command.equals("thanks")) {
+                return this.npAsString();
             } else if (this.isMark(command)) {
                 int i = Integer.parseInt(command.substring(command.length() - 1));
                 return this.tasks.markTaskAsString(i);
@@ -67,14 +74,18 @@ class Ui {
             } else if (this.isTask(command)){
                 return this.tasks.addTaskAsString(new Parser(command).taskToAdd());
             } else {
-                throw new InvalidCommandException();
+                throw new InvalidCommandException(command);
             }
+        } catch (InvalidCommandException e) {
+            return e.getMessage();
         } catch (EmptyException e) {
             return "Oh no! " + e.getMessage() + " description is wrong";
-        } catch (InvalidCommandException e) {
-            return "Oh dear :( I don't understand you";
         } catch (DateTimeParseException e) {
-            return "Date and time should be written as DD-MM-YYYY HHMM";
+            return "Valid date and time should be written as DD-MM-YYYY HHMM";
+        } catch (InvalidEventDateException e) {
+            return "Start date should be before end date";
+        } catch (DuplicateTaskException e) {
+            return "This task already exists";
         } catch (IOException e) {
             return "Something went wrong with the file: " + e.getMessage();
         }
@@ -96,7 +107,7 @@ class Ui {
      */
     private String commandsAsString() {
         return "Here are the list of commands:\n"
-                + "\t- hello\n"
+                + "\t- hello / hi\n"
                 + "\t- list\n"
                 + "\t- todo [task description]\n"
                 + "\t- deadline [task description] /by [dd-mm-yyyy hhmm]\n"
@@ -114,6 +125,10 @@ class Ui {
      */
     private String byeAsString() {
         return "Bye-bye!";
+    }
+
+    private String npAsString() {
+        return "No problem!";
     }
 
     /**
