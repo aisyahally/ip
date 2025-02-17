@@ -1,30 +1,25 @@
-# Duke User Guide
+# Simba User Guide
 
-// Update the title above to match the actual product name
+![Sample Simba screenshot](/Users/ally/Downloads/ip/docs/Ui.png)
 
-// Product screenshot goes here
+Ever worried about forgetting your daily tasks? Simba's here to be your helping hand!  
+**Text-based**, <easy to learn> and *fast to use* -- you'll never have to worry again.
 
-// Product intro goes here
+It can track:
+1. To-dos
+2. Deadlines
+3. Events
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+Example: "deadline submit quiz /by 05-05-2025 1500"
 
 ```
-expected output
+Added task:  
+1. [D] [] submit quiz (by: 05 Feb 2025 15:00)
+Now you have 1 task(s) in the list
 ```
 
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+You can:
+- [X] **add** / **delete** tasks
+- [X] **mark** the tasks done / undone
+- [X] **find** tasks by matching words
+- [] **edit** tasks (coming soon)

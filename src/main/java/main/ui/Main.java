@@ -22,6 +22,7 @@ public class Main extends Application {
         try {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setTitle("Simba");
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
