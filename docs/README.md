@@ -1,6 +1,6 @@
 # Simba User Guide
 
-![Sample Simba screenshot](/Users/ally/Downloads/ip/docs/Ui.png)
+![Sample Simba screenshot](/assets/images/Ui.png)
 
 Ever worried about forgetting your daily tasks? Simba's here to be your helping hand!  
 **Text-based**, <ins>easy to learn</ins> and _fast to use_ -- you'll never have to worry again.
