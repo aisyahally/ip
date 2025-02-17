@@ -3,10 +3,10 @@
 ![Sample Simba screenshot](/Users/ally/Downloads/ip/docs/Ui.png)
 
 Ever worried about forgetting your daily tasks? Simba's here to be your helping hand!  
-**Text-based**, <easy to learn> and *fast to use* -- you'll never have to worry again.
+**Text-based**, <ins>easy to learn</ins> and _fast to use_ -- you'll never have to worry again.
 
 It can track:
-1. To-dos
+1. To-Dos
 2. Deadlines
 3. Events
 
@@ -22,4 +22,4 @@ You can:
 - [X] **add** / **delete** tasks
 - [X] **mark** the tasks done / undone
 - [X] **find** tasks by matching words
-- [] **edit** tasks (coming soon)
+- [ ] **edit** tasks (coming soon)
