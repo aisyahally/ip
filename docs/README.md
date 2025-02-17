@@ -1,4 +1,4 @@
-# Simba User Guide
+# Simba
 
 Ever worried about forgetting your daily tasks? Simba's here to be your helping hand!  
 **Text-based**, <ins>easy to learn</ins> and _fast to use_ -- you'll never have to worry again.
@@ -17,9 +17,10 @@ Now you have 1 task(s) in the list
 ```
 
 You can:
-- [X] **add** / **delete** tasks
-- [X] **mark** the tasks done / undone
-- [X] **find** tasks by matching words
-- [ ] **edit** tasks (coming soon)
+- [X]  **add** / **delete** tasks
+- [X]  **mark** the tasks done / undone
+- [X]  **find** tasks by matching words
+- [X]  use **help** to guide you along
+- [ ]  **edit** tasks (coming soon)
 
 Click [here](https://aisyahally.github.io/ip/Ui.png) for a sample of how it looks!
