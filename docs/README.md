@@ -22,4 +22,4 @@ You can:
 - [X] **find** tasks by matching words
 - [ ] **edit** tasks (coming soon)
 
-![simba sample screenshot](https://aisyahally.github.io/ip//Ui.png)
+Click [here](https://aisyahally.github.io/ip/Ui.png) for a sample of how it looks!
