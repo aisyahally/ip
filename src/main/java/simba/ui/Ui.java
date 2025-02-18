@@ -55,8 +55,6 @@ class Ui {
                 return this.helloAsString();
             } else if (command.equals("help")) {
                 return this.commandsAsString();
-            } else if (command.equals("bye")) {
-                return this.byeAsString();
             } else if (command.equals("list")) {
                 return this.storage.fileToString();
             } else if (command.equals("thanks")) {
@@ -116,15 +114,6 @@ class Ui {
                 + "\t- delete [task number]\n"
                 + "\t- find [keyword in task]\n"
                 + "\t- bye";
-    }
-
-    /**
-     * Returns a farewell message when the user exits the application.
-     *
-     * @return A string message bidding farewell to the user.
-     */
-    private String byeAsString() {
-        return "Bye-bye!";
     }
 
     private String npAsString() {

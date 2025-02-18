@@ -51,12 +51,15 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = simba.getResponse(input);
 
+        if (input.equals("bye")) {
+            System.exit(0);
+        }
         if (input.isBlank()) {
             return;
         }
 
+        String response = simba.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getSimbaDialog(response, simbaImage)
