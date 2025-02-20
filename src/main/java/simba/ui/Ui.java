@@ -71,28 +71,31 @@ class Ui {
         assert command != null && !command.isEmpty() : "Command should not be null or empty";
         Parser parser = new Parser(command);
         try {
-            this.storage.writeToFile(this.tasks.getList());
+            String response = "";
             if (command.equals("hello") || command.equals("hi")) {
-                return this.helloAsString();
+                response = this.helloAsString();
             } else if (command.equals("help")) {
-                return this.commandsAsString();
+                response = this.commandsAsString();
             } else if (command.equals("list")) {
-                return this.storage.fileToString();
+                response = this.storage.fileToString();
             } else if (command.equals("thanks")) {
-                return this.npAsString();
+                response = this.npAsString();
             } else if (this.isMark(command)) {
-                return this.tasks.markTaskAsString(parser.idxToUse());
+                response = this.tasks.markTaskAsString(parser.idxToUse());
             } else if (this.isUnmark(command)) {
-                return this.tasks.unmarkTaskAsString(parser.idxToUse());
+                response = this.tasks.unmarkTaskAsString(parser.idxToUse());
             } else if (this.isDelete(command)) {
-                return this.tasks.deleteTaskAsString(parser.idxToUse());
+                response = this.tasks.deleteTaskAsString(parser.idxToUse());
             } else if (this.isFind(command)) {
-                return this.tasks.findTaskAsString(parser.wordToFind());
+                response = this.tasks.findTaskAsString(parser.wordToFind());
             } else if (this.isTask(command)) {
-                return this.tasks.addTaskAsString(parser.taskToAdd());
-            } else {
+                response = this.tasks.addTaskAsString(parser.taskToAdd());
+            }
+            this.storage.writeToFile(this.tasks.getList());
+            if (response.equals("")) {
                 throw new InvalidCommandException(command);
             }
+            return response;
         } catch (InvalidCommandException e) {
             return e.getMessage();
         } catch (EmptyException e) {

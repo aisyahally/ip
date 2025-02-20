@@ -21,10 +21,10 @@ public class TaskList {
     private final ArrayList<Task> list;
 
     /**
-     * Initializes a new TaskList instance with an empty list of tasks.
+     * Initializes a new TaskList instance with list of tasks read from storage.
      */
-    TaskList() {
-        this.list = new ArrayList<Task>();
+    TaskList(Storage storage) {
+        this.list = storage.readFile();
     }
 
     /**
