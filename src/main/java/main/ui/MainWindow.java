@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import simba.ui.Simba;
 
 /**
- * Controller for the main GUI.
+ * Controller for the main GUI, handling user interactions and chatbot responses.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -27,16 +27,27 @@ public class MainWindow extends AnchorPane {
     private final Image simbaImage = new Image(this.getClass().getResourceAsStream("/images/simba.png"));
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
 
+    /**
+     * Initializes the MainWindow. Binds the ScrollPane's vertical value to the height of the dialog container,
+     * ensuring automatic scrolling to the latest message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Simba instance */
+    /**
+     * Injects the Simba instance into the controller.
+     *
+     * @param simba The Simba chatbot instance.
+     */
     public void setSimba(Simba simba) {
         this.simba = simba;
     }
 
+    /**
+     * Displays Simba's initial greeting in the dialog container.
+     */
     void initialGreeting() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getSimbaDialog(simba.greet(), simbaImage)
@@ -45,8 +56,10 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by displaying the user's message and Simba's response in the dialog container.
+     * If the user enters "bye", the application exits.
+     * If the input is blank, no action is taken.
+     * After processing, the user input field is cleared.
      */
     @FXML
     private void handleUserInput() {

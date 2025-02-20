@@ -39,16 +39,37 @@ class Ui {
     }
 
     /**
-     * Reads and processes a user command and returns a response based on the command.
-     * It checks the command and performs the appropriate action, such as marking tasks,
-     * deleting tasks, adding tasks, or displaying a list of commands.
+     * Processes a user command and returns an appropriate response.
+     * It identifies the command type and performs corresponding actions such as adding, deleting,
+     * marking, unmarking tasks, or displaying a list of tasks or available commands.
+     * If the command is invalid or causes an error, an error message is returned.
      *
-     * @param command The user command to process.
-     * @return A string response based on the processed command or an error message if the command is invalid.
-     * @throws IOException If an error occurs while writing or reading from a file.
+     * <p>The method handles the following commands:</p>
+     * <ul>
+     *     <li>"hello" or "hi" - Returns a greeting message.</li>
+     *     <li>"help" - Displays a list of available commands.</li>
+     *     <li>"list" - Shows the list of tasks in storage.</li>
+     *     <li>"thanks" - Acknowledges the user's gratitude.</li>
+     *     <li>"mark [task number]" - Marks the specified task as done.</li>
+     *     <li>"unmark [task number]" - Marks the specified task as not done.</li>
+     *     <li>"delete [task number]" - Deletes the specified task from the list.</li>
+     *     <li>"find [keyword]" - Searches for tasks containing the specified keyword.</li>
+     *     <li>"todo [task description]" - Adds a new "ToDo" task to the list.</li>
+     *     <li>"deadline [task description] /by [dd-mm-yyyy hhmm]" - Adds a new "Deadline" task to the list.</li>
+     *     <li>"event [task description] /from [dd-mm-yyyy hhmm] /to [dd-mm-yyyy hhmm]"
+     *     - Adds a new "Event" task to the list.</li>
+     * </ul>
+     *
+     * <p>If the command is unrecognized or invalid, an error message will be returned.
+     * Specific exceptions such as empty description, invalid date formats,
+     * or duplicate tasks will also return tailored error messages.</p>
+     *
+     * @param command The user input command to be processed.
+     * @return A string representing the response to the user's command, or an error message if the command is invalid.
      */
     String readCommand(String command) {
         assert command != null && !command.isEmpty() : "Command should not be null or empty";
+        Parser parser = new Parser(command);
         try {
             this.storage.writeToFile(this.tasks.getList());
             if (command.equals("hello") || command.equals("hi")) {
@@ -60,17 +81,15 @@ class Ui {
             } else if (command.equals("thanks")) {
                 return this.npAsString();
             } else if (this.isMark(command)) {
-                int i = Integer.parseInt(command.substring(command.length() - 1));
-                return this.tasks.markTaskAsString(i);
+                return this.tasks.markTaskAsString(parser.idxToUse());
             } else if (this.isUnmark(command)) {
-                int i = Integer.parseInt(command.substring(command.length() - 1));
-                return this.tasks.unmarkTaskAsString(i);
+                return this.tasks.unmarkTaskAsString(parser.idxToUse());
             } else if (this.isDelete(command)) {
-                return this.tasks.deleteTaskAsString(new Parser(command).idxToDelete());
+                return this.tasks.deleteTaskAsString(parser.idxToUse());
             } else if (this.isFind(command)) {
-                return this.tasks.findTaskAsString(new Parser(command).wordToFind());
-            } else if (this.isTask(command)){
-                return this.tasks.addTaskAsString(new Parser(command).taskToAdd());
+                return this.tasks.findTaskAsString(parser.wordToFind());
+            } else if (this.isTask(command)) {
+                return this.tasks.addTaskAsString(parser.taskToAdd());
             } else {
                 throw new InvalidCommandException(command);
             }
@@ -116,6 +135,11 @@ class Ui {
                 + "\t- bye";
     }
 
+    /**
+     * Returns a response message for when the user thanks the application.
+     *
+     * @return A string message acknowledging the user's gratitude.
+     */
     private String npAsString() {
         return "No problem!";
     }
