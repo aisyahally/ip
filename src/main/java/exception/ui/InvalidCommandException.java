@@ -6,10 +6,23 @@ package exception.ui;
 public class InvalidCommandException extends Exception {
     private String command;
 
+    /**
+     * Constructs an InvalidCommandException with the specified invalid command.
+     *
+     * @param command the invalid command entered by the user
+     */
     public InvalidCommandException(String command) {
         this.command = command;
     }
 
+    /**
+     * Returns an error message based on the command entered.
+     * If the command contains uppercase letters, it suggests using lowercase.
+     * Otherwise, it states that the command is not understood.
+     *
+     * @return the error message describing the issue with the command
+     */
+    @Override
     public String getMessage() {
         if (this.containsCaps(this.command)) {
             return "No need to shout at me :( Only lowercase please";
@@ -18,6 +31,12 @@ public class InvalidCommandException extends Exception {
         }
     }
 
+    /**
+     * Checks if the given string contains any uppercase letters.
+     *
+     * @param str the string to check
+     * @return {@code true} if the string contains uppercase letters, {@code false} otherwise
+     */
     private boolean containsCaps(String str) {
         for (int i = 0; i < str.length(); i++) {
             if (Character.isUpperCase(str.charAt(i))) {

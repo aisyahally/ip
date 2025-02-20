@@ -4,26 +4,24 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Manages task storage, including reading from and writing to a file.
- * The Storage class handles operations related to saving tasks to a file
- * and loading tasks from the file.
+ * Represents a general task with a name and completion status.
+ * The {@code Task} class is the base class for specific task types,
+ * eg. {@link ToDo}, {@link Deadline}, and {@link Event}.
+ * It provides methods for task management, such as marking the task as done or undone,
+ * and formatting its name and date.
  *
- * <p>It supports the following functionalities:
- * <ul>
- *     <li>Reading task data from a specified file path.</li>
- *     <li>Writing task data (e.g., task list) to a specified file.</li>
- * </ul>
- * </p>
- *
- * <p>For example, a task list can be printed to the console or saved
- * to the file by using the methods in this class.</p>
+ * <p>Example usage:</p>
+ * <pre>
+ *     Task task = new Task("Example Task");
+ *     task.makeDone(); // Marks the task as done
+ * </pre>
  */
 public abstract class Task {
     private boolean isDone;
     private final String taskName;
 
     /**
-     * Initializes a new Task instance with the specified name.
+     * Constructs a new Task with the specified name.
      *
      * @param name The name of the task.
      */
@@ -33,42 +31,65 @@ public abstract class Task {
     }
 
     /**
-     * Marks the task as done.
+     * Marks the task as completed.
      */
     void makeDone() {
         this.isDone = true;
     }
 
     /**
-     * Marks the task as not done.
+     * Marks the task as not completed.
      */
     void makeUndone() {
         this.isDone = false;
     }
 
     /**
-     * Returns a string representation of the task.
+     * Retrieves the name of the task.
      *
-     * @return The string representation of the task.
+     * @return The name of the task.
      */
     String getName() {
         return this.taskName;
     }
 
+    /**
+     * Returns the type of the task (e.g., "ToDo", "Deadline", "Event").
+     *
+     * @return The type of the task.
+     */
     abstract String getType();
 
+    /**
+     * Returns the date associated with the task.
+     *
+     * @return The date associated with the task.
+     */
     abstract LocalDateTime getDate();
 
+    /**
+     * Returns the end date associated with the task.
+     * This is particularly useful for tasks like events with a start and end time.
+     *
+     * @return The end date of the task.
+     */
     abstract LocalDateTime getEndDate();
 
+    /**
+     * Compares this task with another object for equality.
+     * The comparison is based on task name and date.
+     *
+     * @param obj The object to compare with.
+     * @return {@code true} if the tasks are equal, {@code false} otherwise.
+     */
     public abstract boolean equals(Object obj);
 
     /**
-     * Formats a LocalDateTime object into a string.
-     * The formatted string will follow the pattern "dd MMM yyyy HH:mm".
+     * Formats a {@code LocalDateTime} object into a string.
+     * The formatted string follows the pattern "dd MMM yyyy HH:mm".
      *
-     * @param date The LocalDateTime object to format.
-     * @return The formatted date string.
+     * @param date The {@code LocalDateTime} object to format.
+     * @return A string representing the formatted date.
      */
     protected String stringDate(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
@@ -76,10 +97,10 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string representation of the task.
-     * The string includes the task's completion status and its name.
+     * Returns a string representation of the task, including its completion status.
+     * If the task is completed, it will be prefixed with "[X]", otherwise it will be "[ ]".
      *
-     * @return A string representing the task, with "[X]" for done tasks and "[ ]" for pending tasks.
+     * @return A string representing the task.
      */
     public String toString() {
         if (this.isDone) {

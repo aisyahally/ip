@@ -1,7 +1,5 @@
 package simba.ui;
 
-import java.util.ArrayList;
-
 /**
  * The main class for the Simba task management application.
  * Simba manages tasks, allows users to add, view, and delete tasks, and saves them to a file.
@@ -34,12 +32,15 @@ public class Simba {
         this.ui = new Ui(this.storage, this.tasks);
     }
 
+    /**
+     * Generates a greeting as a string.
+     */
     public String greet() {
         return ui.generateGreeting();
     }
 
     /**
-     * Generates a response for the user's chat message.
+     * Generates a response for the user's chat message as a string.
      */
     public String getResponse(String input) {
         return ui.readCommand(input);

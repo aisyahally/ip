@@ -6,20 +6,19 @@ import exception.ui.DuplicateTaskException;
 
 /**
  * Represents a list of tasks, providing methods to manipulate and manage tasks.
- * The TaskList class allows adding, deleting, marking tasks as done or undone,
+ * The {@code TaskList} class allows adding, deleting, marking tasks as done or undone,
  * and searching for tasks in the list.
  *
- * <p>It supports the following functionalities:
+ * <p>It supports the following functionalities:</p>
  * <ul>
  *     <li>Adding tasks to the list.</li>
  *     <li>Deleting tasks from the list.</li>
  *     <li>Marking tasks as done or undone.</li>
  *     <li>Searching for tasks containing a specific word.</li>
  * </ul>
- * </p>
  */
 public class TaskList {
-    private ArrayList<Task> list;
+    private final ArrayList<Task> list;
 
     /**
      * Initializes a new TaskList instance with an empty list of tasks.
@@ -32,6 +31,7 @@ public class TaskList {
      * Deletes a task from the list at the specified index.
      *
      * @param idx The index of the task to delete.
+     * @return A message indicating the task was deleted, or a message if the task doesn't exist.
      */
     String deleteTaskAsString(int idx) {
         if (idx > this.list.size()) {
@@ -48,6 +48,8 @@ public class TaskList {
      * Adds a task to the list.
      *
      * @param task The task to add.
+     * @return A message indicating the task was added and the current task list size.
+     * @throws DuplicateTaskException If the task is a duplicate of an existing task in the list.
      */
     String addTaskAsString(Task task) throws DuplicateTaskException {
 
@@ -69,6 +71,7 @@ public class TaskList {
      * Marks a task as done at the specified index.
      *
      * @param idx The index of the task to mark as done.
+     * @return A message indicating the task is marked as done, or an error message if the task doesn't exist.
      */
     String markTaskAsString(int idx) {
         if (idx > this.list.size()) {
@@ -78,10 +81,12 @@ public class TaskList {
         return "Alright! This task is done:\n"
                 + idx + ". " + list.get(idx - 1);
     }
+
     /**
      * Marks a task as not done at the specified index.
      *
      * @param idx The index of the task to mark as not done.
+     * @return A message indicating the task is marked as not done, or an error message if the task doesn't exist.
      */
     String unmarkTaskAsString(int idx) {
         if (idx > this.list.size()) {
@@ -92,6 +97,12 @@ public class TaskList {
                 + idx + ". " + list.get(idx - 1);
     }
 
+    /**
+     * Searches for tasks that contain the specified word.
+     *
+     * @param word The word to search for in the task names.
+     * @return A string with the tasks that match the search word, or a message indicating no tasks were found.
+     */
     String findTaskAsString(String word) {
         boolean found = false;
         String result = "Here are the matching task(s):\n";

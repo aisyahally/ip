@@ -8,34 +8,35 @@ import exception.ui.EmptyException;
 import exception.ui.InvalidEventDateException;
 
 /**
- * Parses commands to create different task types (ToDo, Deadline, Event) or extract task-related information.
+ * The {@code Parser} class is responsible for interpreting user commands
+ * and converting them into task objects such as {@link ToDo}, {@link Deadline},
+ * and {@link Event}. It also extracts relevant task-related information.
  *
- * <p>This class handles parsing of various task-related commands, such as "todo", "deadline", and "event",
- * and converting them into corresponding task objects. It also provides utilities to extract task indices and
- * format or parse date information from command strings.</p>
- *
- * <p>For example, parsing a command like "event Meeting /from 2025-02-10 0900 /to 2025-02-10 1100" will return
- * an Event task object with start and end times.</p>
+ * <p>This class supports:
+ * <ul>
+ *     <li>Creating tasks from user input</li>
+ *     <li>Extracting task indices for deletion</li>
+ *     <li>Parsing date strings into {@link LocalDateTime} objects</li>
+ * </ul>
  */
 public class Parser {
     private final String command;
 
     /**
-     * Initializes a new Parser instance with the specified command.
+     * Constructs a {@code Parser} object with the given command string.
      *
-     * @param command The command in a String.
+     * @param command The command to be parsed.
      */
     Parser(String command) {
         this.command = command;
     }
 
     /**
-     * Parses a date string into a LocalDateTime object.
-     * This method uses a specific date-time pattern to parse the input string.
+     * Parses a date string into a {@link LocalDateTime} object.
      *
-     * @param input The date string to parse, in the format "dd-MM-yyyy HHmm".
-     * @return The parsed LocalDateTime object representing the provided date and time.
-     * @throws DateTimeParseException If the date string cannot be parsed into a LocalDateTime object.
+     * @param input The date string in the format "dd-MM-yyyy HHmm".
+     * @return A {@link LocalDateTime} object representing the parsed date and time.
+     * @throws DateTimeParseException If the input string is not in the expected format.
      */
     private static LocalDateTime readDate(String input) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
@@ -43,21 +44,21 @@ public class Parser {
     }
 
     /**
-     * Extracts the index of the task to delete from the command.
+     * Extracts the index of the task to be marked, unmarked or deleted from the command.
      *
-     * @return The index of the task to delete.
+     * @return The task index as an integer.
      */
-    int idxToDelete() {
+    int idxToUse() {
         return Integer.parseInt(this.command.substring(this.command.length() - 1));
     }
 
     /**
-     * Parses the command and creates a new task to add.
-     * The method checks if the command is related to "todo", "event", or "deadline"
-     * and calls the respective method to create the corresponding task.
+     * Parses the command and creates a corresponding task object.
      *
-     * @return The task to add (ToDo, Deadline, or Event).
-     * @throws EmptyException If the command is invalid or the task description is empty.
+     * @return A task object of type {@link ToDo}, {@link Deadline}, or {@link Event}.
+     * @throws EmptyException If the command is invalid or lacks a description.
+     * @throws DateTimeParseException If the date format is incorrect.
+     * @throws InvalidEventDateException If an event's start date is after the end date.
      */
     Task taskToAdd() throws EmptyException, DateTimeParseException, InvalidEventDateException {
         if (this.command.substring(0, 4).equals("todo")) {
@@ -70,10 +71,10 @@ public class Parser {
     }
 
     /**
-     * Parses a "todo" command and creates a ToDo task.
+     * Parses a "todo" command and creates a {@link ToDo} task.
      *
-     * @return A new ToDo task created from the command description.
-     * @throws EmptyException If the "todo" command does not contain a description.
+     * @return A {@link ToDo} task instance.
+     * @throws EmptyException If the task description is empty.
      */
     private ToDo parseToDo() throws EmptyException {
         if (this.command.length() < 6) {
@@ -83,12 +84,11 @@ public class Parser {
     }
 
     /**
-     * Parses a "deadline" command and creates a Deadline task.
-     * The method extracts the task description and the deadline date/time.
+     * Parses a "deadline" command and creates a {@link Deadline} task.
      *
-     * @return A new Deadline task created from the command description and deadline time.
-     * @throws EmptyException If the "deadline" command does not contain a description or a date.
-     * @throws DateTimeParseException If the date string cannot be parsed into a LocalDateTime object.
+     * @return A {@link Deadline} task instance.
+     * @throws EmptyException If the task description or deadline is missing.
+     * @throws DateTimeParseException If the deadline format is incorrect.
      */
     private Deadline parseDeadline() throws EmptyException, DateTimeParseException {
         if (this.command.length() < 10) {
@@ -103,12 +103,12 @@ public class Parser {
     }
 
     /**
-     * Parses an "event" command and creates an Event task.
-     * The method extracts the task description and the event's start and end times.
+     * Parses an "event" command and creates an {@link Event} task.
      *
-     * @return A new Event task created from the command description and event times.
-     * @throws EmptyException If the "event" command does not contain a description or time information.
-     * @throws DateTimeParseException If the date string cannot be parsed into a LocalDateTime object.
+     * @return An {@link Event} task instance.
+     * @throws EmptyException If the task description or event times are missing.
+     * @throws DateTimeParseException If the date format is incorrect.
+     * @throws InvalidEventDateException If the event's start time is after the end time.
      */
     private Event parseEvent() throws EmptyException, DateTimeParseException, InvalidEventDateException {
         if (this.command.length() < 7) {
@@ -140,10 +140,9 @@ public class Parser {
     }
 
     /**
-     * Extracts the word or keyword to search for in the "find" command.
-     * The method assumes that the "find" command starts with the keyword "find" followed by the search word.
+     * Extracts the search keyword from a "find" command.
      *
-     * @return The keyword to search for, which is the portion of the command after "find ".
+     * @return The keyword to search for.
      */
     String wordToFind() {
         return this.command.substring(5);
